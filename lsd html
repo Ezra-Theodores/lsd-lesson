@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No Cap: Love, Dating & The Real Antidote 🕊️🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-pink: #ff2d78;
+    --neon-blue: #00d4ff;
+    --gold: #ffd60a;
+    --purple: #9b5de5;
+    --mint: #06ffa5;
+    --dark: #08080f;
+    --dark2: #111120;
+    --glass: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  }
+
+  /* ===== LOGO STYLES ===== */
+  .logo-container {
+    position: fixed;
+    top: 16px;
+    right: 30px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  .logo-container:hover { transform: scale(1.05); }
+  .logo-container img { height: 40px; width: auto; }
+
+  /* ===== BACKGROUND PARTICLES ===== */
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ===== SLIDE WRAPPER ===== */
+  .slides-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(60px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.7) rotate(-5deg); opacity: 0; }
+    70% { transform: scale(1.05) rotate(1deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  @keyframes slideLeft {
+    from { transform: translateX(-80px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideRight {
+    from { transform: translateX(80px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes glow {
+    0%,100% { text-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink); }
+    50% { text-shadow: 0 0 40px var(--neon-pink), 0 0 80px var(--neon-pink), 0 0 120px var(--neon-pink); }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes pulse-glow {
+    0%,100% { box-shadow: 0 0 20px rgba(255,45,120,0.3), 0 0 40px rgba(155,93,229,0.2); }
+    50% { box-shadow: 0 0 40px rgba(255,45,120,0.6), 0 0 80px rgba(155,93,229,0.4); }
+  }
+  @keyframes wave-anim {
+    0%,100% { height: 6px; }
+    50% { height: 30px; }
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .title-mega {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 12vw, 130px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .title-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 7vw, 90px);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .title-med {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 4.5vw, 56px);
+    letter-spacing: 1px;
+  }
+  .body-text {
+    font-size: clamp(14px, 2vw, 20px);
+    line-height: 1.7;
+    font-weight: 600;
+  }
+  .caption {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(10px, 1.3vw, 14px);
+    opacity: 0.6;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ===== COLORS ===== */
+  .pink { color: var(--neon-pink); }
+  .blue { color: var(--neon-blue); }
+  .gold { color: var(--gold); }
+  .purple { color: var(--purple); }
+  .mint { color: var(--mint); }
+  .white { color: #fff; }
+
+  .grad-pink-blue {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .grad-gold-mint {
+    background: linear-gradient(135deg, var(--gold), var(--mint));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .grad-shimmer {
+    background: linear-gradient(90deg, var(--neon-pink), var(--gold), var(--neon-blue), var(--neon-pink));
+    background-size: 400% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* ===== GLASS CARDS ===== */
+  .glass-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 24px 30px;
+    backdrop-filter: blur(20px);
+  }
+  .neon-card-pink {
+    background: rgba(255, 45, 120, 0.08);
+    border: 1px solid rgba(255, 45, 120, 0.3);
+    border-radius: 20px;
+    padding: 24px 30px;
+    box-shadow: 0 0 30px rgba(255,45,120,0.1);
+  }
+  .neon-card-blue {
+    background: rgba(0, 212, 255, 0.08);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 20px;
+    padding: 24px 30px;
+    box-shadow: 0 0 30px rgba(0,212,255,0.1);
+  }
+  .neon-card-gold {
+    background: rgba(255, 214, 10, 0.08);
+    border: 1px solid rgba(255, 214, 10, 0.3);
+    border-radius: 20px;
+    padding: 24px 30px;
+    box-shadow: 0 0 30px rgba(255,214,10,0.1);
+  }
+
+  /* ===== TAGS / BADGES ===== */
+  .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .tag-pink { background: rgba(255,45,120,0.2); border: 1px solid var(--neon-pink); color: var(--neon-pink); }
+  .tag-blue { background: rgba(0,212,255,0.2); border: 1px solid var(--neon-blue); color: var(--neon-blue); }
+  .tag-gold { background: rgba(255,214,10,0.2); border: 1px solid var(--gold); color: var(--gold); }
+  .tag-mint { background: rgba(6,255,165,0.2); border: 1px solid var(--mint); color: var(--mint); }
+  .tag-purple { background: rgba(155,93,229,0.2); border: 1px solid var(--purple); color: var(--purple); }
+
+  /* ===== DECORATIVE ELEMENTS ===== */
+  .deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .emoji-float {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav-bar {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 12px 24px;
+    backdrop-filter: blur(20px);
+  }
+  .nav-btn {
+    background: none;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover {
+    background: var(--neon-pink);
+    border-color: var(--neon-pink);
+    transform: scale(1.1);
+  }
+  .slide-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    min-width: 60px;
+    text-align: center;
+  }
+  .dot-nav { display: flex; gap: 6px; align-items: center; }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active {
+    background: var(--neon-pink);
+    width: 20px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px var(--neon-pink);
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    transition: width 0.4s ease;
+    z-index: 100;
+    box-shadow: 0 0 10px var(--neon-pink);
+  }
+
+  /* ===== SLIDE-SPECIFIC LAYOUTS ===== */
+  #slide-0 {
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,45,120,0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(0,212,255,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 80%, rgba(155,93,229,0.1) 0%, transparent 50%);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 900px;
+  }
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 860px;
+  }
+
+  .anim-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  .slide.active .anim-item:nth-child(1) { animation: slideLeft 0.5s 0.3s forwards; }
+  .slide.active .anim-item:nth-child(2) { animation: slideLeft 0.5s 0.5s forwards; }
+  .slide.active .anim-item:nth-child(3) { animation: slideLeft 0.5s 0.7s forwards; }
+  .slide.active .anim-item:nth-child(4) { animation: slideLeft 0.5s 0.9s forwards; }
+  .slide.active .anim-item:nth-child(5) { animation: slideLeft 0.5s 1.1s forwards; }
+
+  .bullet-icon {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-top: 2px;
+  }
+
+  .slide.active .anim-up { animation: slideUp 0.6s 0.1s both; }
+  .slide.active .anim-up-2 { animation: slideUp 0.6s 0.3s both; }
+  .slide.active .anim-up-3 { animation: slideUp 0.6s 0.5s both; }
+  .slide.active .anim-up-4 { animation: slideUp 0.6s 0.7s both; }
+  .slide.active .anim-up-5 { animation: slideUp 0.6s 0.9s both; }
+  .slide.active .anim-up-6 { animation: slideUp 0.6s 1.1s both; }
+  .slide.active .anim-pop { animation: popIn 0.6s 0.2s both; }
+  .slide.active .anim-fade { animation: fadeIn 0.8s 0.4s both; }
+  .slide.active .anim-right { animation: slideRight 0.6s 0.3s both; }
+
+  .slide-header {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .slide-header .caption {
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .triangle-viz {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+  .tri-node {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    border: 2px solid;
+  }
+  .tri-top { top: 0; left: 50%; transform: translateX(-50%); background: rgba(255,214,10,0.15); border-color: var(--gold); animation: float 3s ease-in-out infinite; }
+  .tri-left { bottom: 0; left: 0; background: rgba(255,45,120,0.15); border-color: var(--neon-pink); animation: float 3s 1s ease-in-out infinite; }
+  .tri-right { bottom: 0; right: 0; background: rgba(0,212,255,0.15); border-color: var(--neon-blue); animation: float 3s 2s ease-in-out infinite; }
+
+  .verse-box {
+    border-left: 4px solid var(--neon-pink);
+    padding: 16px 20px;
+    background: rgba(255,45,120,0.05);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+  }
+
+  /* Song card */
+  .song-card {
+    background: linear-gradient(135deg, rgba(255,45,120,0.1), rgba(155,93,229,0.1));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 30px;
+    width: 100%;
+    max-width: 760px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  .song-wave {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: flex-end;
+    height: 30px;
+    margin: 12px 0;
+  }
+  .wave-bar {
+    width: 4px;
+    border-radius: 2px;
+    background: var(--neon-pink);
+    animation: wave-anim 1s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(1) { animation-delay: 0s; background: var(--neon-pink); }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; background: var(--purple); }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; background: var(--neon-blue); }
+  .wave-bar:nth-child(4) { animation-delay: 0.3s; background: var(--mint); }
+  .wave-bar:nth-child(5) { animation-delay: 0.4s; background: var(--gold); }
+  .wave-bar:nth-child(6) { animation-delay: 0.3s; background: var(--neon-blue); }
+  .wave-bar:nth-child(7) { animation-delay: 0.2s; background: var(--purple); }
+  .wave-bar:nth-child(8) { animation-delay: 0.1s; background: var(--neon-pink); }
+  .wave-bar:nth-child(9) { animation-delay: 0s; background: var(--gold); }
+
+  .stat-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+  }
+
+  .step-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  #slide-11 {
+    background: radial-gradient(ellipse at center, rgba(155,93,229,0.25) 0%, rgba(255,45,120,0.1) 40%, transparent 70%);
+  }
+
+  .touch-hint {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  /* Lyric line styles */
+  .lyric-section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    margin-top: 14px;
+    opacity: 0.4;
+  }
+  .lyric-line {
+    font-size: clamp(12px, 1.6vw, 16px);
+    font-weight: 700;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+  }
+  .lyric-line.highlight {
+    color: var(--neon-pink);
+    font-size: clamp(13px, 1.8vw, 18px);
+    font-weight: 900;
+  }
+  .lyric-line.chorus {
+    color: var(--gold);
+    font-weight: 800;
+  }
+  .lyric-line.bridge {
+    color: var(--neon-blue);
+    font-weight: 800;
+  }
+  .lyric-scroll {
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    width: 100%;
+    max-width: 760px;
+    padding: 0 10px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,45,120,0.3) transparent;
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGO CONTAINER -->
+<div class="logo-container">
+  <img src="https://i.imgur.com/3lLW585.png" alt="Logo">
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progress"></div>
+
+<!-- PARTICLES -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- ==================== SLIDES ==================== -->
+<div class="slides-container" id="slides">
+
+  <!-- SLIDE 0: COVER -->
+  <div class="slide active" id="slide-0">
+    <div class="deco-circle" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,45,120,0.15),transparent);top:-100px;right:-100px;"></div>
+    <div class="deco-circle" style="width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,255,0.12),transparent);bottom:-50px;left:-80px;"></div>
+    <div class="emoji-float" style="top:15%;left:8%;animation-delay:0s;">🔥</div>
+    <div class="emoji-float" style="top:20%;right:10%;animation-delay:0.5s;">🕊️</div>
+    <div class="emoji-float" style="bottom:25%;left:5%;animation-delay:1s;">💕</div>
+    <div class="emoji-float" style="bottom:20%;right:8%;animation-delay:1.5s;">✨</div>
+    <div class="anim-up" style="margin-bottom:12px;">
+      <span class="tag tag-pink">Youth Special Series</span>
+    </div>
+    <div class="anim-up-2">
+      <div class="title-mega grad-shimmer" style="margin-bottom:8px;">NO CAP</div>
+    </div>
+    <div class="anim-up-3">
+      <div class="title-med white" style="text-align:center;margin-bottom:20px;opacity:0.9;">
+        Love, Dating & The <span class="pink">Real</span> Antidote
+      </div>
+    </div>
+    <div class="anim-up-4" style="text-align:center;max-width:560px;margin-bottom:30px;">
+      <p class="body-text" style="color:rgba(255,255,255,0.6);">
+        POV: Kamu lagi nyari cinta, tapi malah nemu red flags atau rasa kosong yang nggak abis-abis. Yuk, kita spill the tea pakai kacamata Tuhan dan sains. 🤍
+      </p>
+    </div>
+    <div class="anim-up-5" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <span class="tag tag-blue">🧠 Science</span>
+      <span class="tag tag-mint">📖 Alkitab</span>
+      <span class="tag tag-gold">💡 Real Talk</span>
+      <span class="tag tag-purple">🎵 Musik</span>
+    </div>
+    <div class="anim-fade" style="position:absolute;bottom:100px;left:50%;transform:translateX(-50%);text-align:center;">
+      <p class="caption" style="color:rgba(255,255,255,0.3);">11 slides • tap or press arrow keys</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 1 -->
+  <div class="slide" id="slide-1">
+    <div style="width:100%;max-width:860px;">
+      <div class="slide-header anim-up">
+        <span class="caption pink">Slide 01</span>
+        <div class="title-big white">Kenapa Harus <span class="grad-pink-blue">Bahas Ini?</span></div>
+      </div>
+      <div class="flex-col" style="margin-top:20px;">
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(255,45,120,0.15);border:1px solid var(--neon-pink);">📱</div>
+          <div class="glass-card" style="flex:1;">
+            <p class="body-text white">Kita tiap hari di-<span class="pink">FYP</span> sama konten romance yang bikin baper. Ada yang manifest jodoh, kena ghosting, sampe healing dari broken home.</p>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(0,212,255,0.15);border:1px solid var(--neon-blue);">🌍</div>
+          <div class="neon-card-blue" style="flex:1;">
+            <p class="body-text white">Dunia bilang: <span class="blue">"Cari pacar biar bahagia."</span></p>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(255,214,10,0.15);border:1px solid var(--gold);">📖</div>
+          <div class="neon-card-gold" style="flex:1;">
+            <p class="body-text white">Tapi <span class="gold">Alkitab</span> punya Blueprint yang jauh lebih keren dari itu. Kita belajar dari <strong>The OG Couple: Adam & Hawa!</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="anim-up-5" style="margin-top:20px;">
+        <div class="verse-box">
+          <p class="body-text" style="color:rgba(255,255,255,0.8);">"Hanya dekat Allah saja aku tenang." — <span class="pink">Mazmur 62:2</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide" id="slide-2">
+    <div style="width:100%;max-width:900px;">
+      <div class="slide-header anim-up">
+        <span class="caption blue">Slide 02</span>
+        <div class="title-big white">Habitat & <span class="grad-pink-blue">Sumber Life</span></div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;gap:14px;">
+        <div class="anim-up-2">
+          <div class="neon-card-blue" style="height:100%;">
+            <div style="font-size:36px;margin-bottom:10px;">🐟</div>
+            <p class="caption blue" style="margin-bottom:6px;">Kejadian 1:9,11</p>
+            <p class="body-text white">Ikan diciptain → Tuhan ngomong ke <span class="blue">Laut</span></p>
+            <p class="body-text" style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px;">Ikan lepas dari laut? <strong>Fix mati.</strong></p>
+          </div>
+        </div>
+        <div class="anim-up-2">
+          <div class="glass-card" style="background:rgba(6,255,165,0.06);border-color:rgba(6,255,165,0.3);height:100%;">
+            <div style="font-size:36px;margin-bottom:10px;">🌳</div>
+            <p class="caption mint" style="margin-bottom:6px;">Kejadian 1:11</p>
+            <p class="body-text white">Pohon diciptain → Tuhan ngomong ke <span class="mint">Tanah</span></p>
+            <p class="body-text" style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px;">Habitat = Sumber Hidup.</p>
+          </div>
+        </div>
+        <div class="anim-up-3" style="grid-column:1/-1;">
+          <div class="neon-card-pink">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="font-size:48px;">👑</div>
+              <div>
+                <p class="caption pink" style="margin-bottom:6px;">Kejadian 1:26 — THE TEA</p>
+                <p class="body-text white">Manusia? Tuhan ngomong ke <span class="pink">Diri-Nya sendiri</span>: <em>"Baiklah Kita menjadikan manusia..."</em></p>
+                <p class="body-text" style="color:rgba(255,255,255,0.7);margin-top:8px;">Habitat asli kamu bukan cuma di bumi — tapi di <strong class="pink">Hadirat Tuhan</strong>. Tanpa Tuhan, kamu bakal ngerasa kosong terus, meskipun punya pacar cakep! 💀</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide" id="slide-3">
+    <div style="width:100%;max-width:800px;text-align:center;">
+      <div class="anim-up"><span class="caption purple">Slide 03</span></div>
+      <div class="anim-pop" style="margin:14px 0;">
+        <div class="title-mega grad-gold-mint">IMAGO DEI</div>
+      </div>
+      <div class="anim-up-3">
+        <p class="title-med white" style="margin-bottom:20px;">Main Character <span class="gold">Energy</span> 👑</p>
+      </div>
+      <div class="anim-fade">
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;">
+          <div class="glass-card" style="flex:1;min-width:200px;">
+            <div style="font-size:40px;margin-bottom:10px;">🪞</div>
+            <p class="body-text white">Kamu adalah <span class="gold">Gambar Tuhan</span> <br><span style="font-size:13px;color:rgba(255,255,255,0.6);">Kejadian 1:27</span></p>
+          </div>
+          <div class="glass-card" style="flex:1;min-width:200px;">
+            <div style="font-size:40px;margin-bottom:10px;">⚖️</div>
+            <p class="body-text white">Laki-laki & Perempuan punya <span class="mint">value yang sama</span></p>
+          </div>
+          <div class="glass-card" style="flex:1;min-width:200px;">
+            <div style="font-size:40px;margin-bottom:10px;">🚩</div>
+            <p class="body-text white">Red Flag: yang liat kamu cuma dari <span class="pink">fisik atau clout</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="anim-up-5">
+        <div class="neon-card-gold" style="text-align:left;">
+          <p class="body-text" style="color:rgba(255,255,255,0.9);">💡 <strong>Green Flag:</strong> Cari pasangan yang ngeliat kamu sebagai <span class="gold">"Gambar Tuhan"</span>, bukan cuma liat fisik atau clout. Kamu diciptain bukan buat jadi "cadangan" atau "pelampiasan" orang lain!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide" id="slide-4">
+    <div style="width:100%;max-width:900px;">
+      <div class="slide-header anim-up" style="text-align:left;">
+        <span class="caption gold">Slide 04</span>
+        <div class="title-big white">Love <span class="grad-pink-blue">Triangle</span><br>yang Bener 🔺</div>
+      </div>
+      <div class="grid-2" style="margin-top:16px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="anim-up-2">
+            <div class="neon-card-gold">
+              <p class="caption gold" style="margin-bottom:6px;">1 Yohanes 4:8</p>
+              <p class="body-text white">"<span class="gold">Allah adalah kasih.</span>" Mustahil bisa kasih real love tanpa konek sama Sumbernya!</p>
+            </div>
+          </div>
+          <div class="anim-up-3">
+            <div class="neon-card-pink">
+              <p class="body-text white">🔼 Puncak segitiga: <span class="pink">Tuhan Yesus</span></p>
+              <p class="body-text" style="color:rgba(255,255,255,0.7);margin-top:6px;">Kalau kamu deketin Tuhan, dan si dia deketin Tuhan → kalian bakal makin deket satu sama lain!</p>
+            </div>
+          </div>
+          <div class="anim-up-4">
+            <div class="glass-card" style="background:rgba(255,0,0,0.06);border-color:rgba(255,0,0,0.3);">
+              <p class="body-text" style="color:#ff6b6b;">⚠️ Hubungan horizontal tanpa vertikal ke Tuhan = <strong>TOXIC</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="anim-fade" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="triangle-viz">
+            <svg width="280" height="280" viewBox="0 0 280 280" style="position:absolute;top:0;left:0;">
+              <defs>
+                <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:rgba(255,214,10,0.5)"/>
+                  <stop offset="100%" style="stop-color:rgba(255,214,10,0)"/>
+                </linearGradient>
+                <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:rgba(255,45,120,0.5)"/>
+                  <stop offset="100%" style="stop-color:rgba(0,212,255,0.5)"/>
+                </linearGradient>
+              </defs>
+              <line x1="140" y1="35" x2="35" y2="245" stroke="url(#lg1)" stroke-width="2"/>
+              <line x1="140" y1="35" x2="245" y2="245" stroke="url(#lg1)" stroke-width="2"/>
+              <line x1="35" y1="245" x2="245" y2="245" stroke="url(#lg2)" stroke-width="2"/>
+            </svg>
+            <div class="tri-node tri-top">✝️</div>
+            <div class="tri-node tri-left">👤</div>
+            <div class="tri-node tri-right">👤</div>
+            <div style="position:absolute;top:30px;left:50%;transform:translateX(-50%);margin-top:72px;">
+              <span class="caption gold" style="font-size:9px;">TUHAN</span>
+            </div>
+            <div style="position:absolute;bottom:20px;left:5px;">
+              <span class="caption pink" style="font-size:9px;">KAMU</span>
+            </div>
+            <div style="position:absolute;bottom:20px;right:5px;">
+              <span class="caption blue" style="font-size:9px;">DIA</span>
+            </div>
+          </div>
+          <p class="body-text" style="color:rgba(255,255,255,0.5);text-align:center;font-size:13px;margin-top:10px;">Green flag sejati: dia yang cinta Yesus <br>lebih dari cinta kamu 💚</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide" id="slide-5">
+    <div style="width:100%;max-width:860px;">
+      <div class="slide-header anim-up" style="text-align:left;">
+        <span class="caption mint">Slide 05</span>
+        <div class="title-big white">Eden Dulu, <span class="mint">Baru Hawa</span> 🌿</div>
+        <p class="body-text" style="color:rgba(255,255,255,0.5);margin-top:6px;font-size:14px;">Timing is Key, bestie!</p>
+      </div>
+      <div class="flex-col" style="margin-top:16px;">
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(6,255,165,0.15);border:1px solid var(--mint);">📖</div>
+          <div class="glass-card" style="flex:1;">
+            <p class="body-text white">Adam dapet Hawa <span class="mint">pas dia udah di Eden</span> dan lagi sibuk kerja & melayani. <span style="color:rgba(255,255,255,0.5);font-size:13px;">(Kejadian 2:15, 18)</span></p>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(255,45,120,0.15);border:1px solid var(--neon-pink);">🎓</div>
+          <div class="neon-card-pink" style="flex:1;">
+            <p class="body-text white">Masa Sekolah? Seringnya belum waktunya. Kamu harus nemu <span class="pink">"Eden"-mu</span> (tujuan hidup & misi) dulu!</p>
+          </div>
+        </div>
+      </div>
+      <div class="anim-up-4" style="margin-top:16px;">
+        <div class="neon-card-gold">
+          <div class="grid-2" style="gap:20px;">
+            <div style="text-align:center;">
+              <div class="stat-big pink">98%</div>
+              <p class="body-text" style="color:rgba(255,255,255,0.7);font-size:14px;">High School Sweethearts yang putus karena visi hidup berubah</p>
+            </div>
+            <div style="text-align:center;">
+              <div class="stat-big mint">2%</div>
+              <p class="body-text" style="color:rgba(255,255,255,0.7);font-size:14px;">Yang awet sampai pernikahan</p>
+              <p style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:4px;">Source: NCFMR Research</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="anim-up-5" style="margin-top:12px;">
+        <div class="verse-box">
+          <p class="body-text" style="color:rgba(255,255,255,0.8);">💡 Suka boleh, kagum oke, tapi nggak perlu buru-buru "ikat" kalau belum siap "rawat". <span class="mint">Cinta sejati itu memberi kebebasan untuk bertumbuh.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide" id="slide-6">
+    <div style="width:100%;max-width:900px;">
+      <div class="slide-header anim-up" style="text-align:left;">
+        <span class="caption blue">Slide 06</span>
+        <div class="title-big white">🧠 Science: Serangan <span class="blue">Dopamin</span> vs Rapor</div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;align-items:start;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="anim-up-2">
+            <div class="neon-card-pink">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+                <span style="font-size:32px;">💊</span>
+                <div>
+                  <p class="caption pink">Dopamin</p>
+                  <p class="body-text white" style="font-size:14px;">Hormon reward & nagih</p>
+                </div>
+              </div>
+              <p class="body-text" style="color:rgba(255,255,255,0.7);font-size:14px;">Saat jatuh cinta, otak <span class="pink">dibanjiri dopamin</span> yang bikin rindu bergelora. Super addictive! 🚨</p>
+            </div>
+          </div>
+          <div class="anim-up-3">
+            <div class="neon-card-blue">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+                <span style="font-size:32px;">🧠</span>
+                <div>
+                  <p class="caption blue">Prefrontal Cortex (PFC)</p>
+                  <p class="body-text white" style="font-size:14px;">"CEO" otak kamu</p>
+                </div>
+              </div>
+              <p class="body-text" style="color:rgba(255,255,255,0.7);font-size:14px;">Tugasnya: logika & kontrol diri. Tapi baru <span class="blue">matang sempurna di usia 25!</span> <span style="font-size:11px;opacity:0.6;">(NIMH Research)</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="anim-right" style="display:flex;flex-direction:column;gap:12px;">
+          <div class="glass-card" style="background:rgba(255,100,0,0.08);border-color:rgba(255,100,0,0.3);">
+            <p class="caption" style="color:#ff6b35;margin-bottom:10px;">⚡ The Conflict</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="font-size:24px;">📈</span>
+              <p class="body-text" style="color:rgba(255,255,255,0.8);font-size:14px;">Dopamin remaja: <strong style="color:#ff6b35;">TINGGI-TINGGINYA</strong></p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:24px;">📉</span>
+              <p class="body-text" style="color:rgba(255,255,255,0.8);font-size:14px;">PFC (rem otak): <strong style="color:#ff6b35;">BELUM PAKEM</strong></p>
+            </div>
+          </div>
+          <div class="neon-card-gold">
+            <p class="caption gold" style="margin-bottom:10px;">💀 Akibatnya?</p>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>📚</span><p class="body-text white" style="font-size:14px;">Fokus belajar hancur</p></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span>💬</span><p class="body-text white" style="font-size:14px;">Waktu habis buat chatting</p></div>
+              <div style="display:flex;align-items:center;gap:8px;"><span>📊</span><p class="body-text white" style="font-size:14px;">Nilai Rapor jadi tumbal</p></div>
+            </div>
+          </div>
+          <div class="verse-box" style="border-color:var(--gold);">
+            <p class="body-text" style="color:var(--gold);font-weight:800;">Jangan tukar masa depan permanen dengan pleasure sementara! 🔑</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div class="slide" id="slide-7">
+    <div style="width:100%;max-width:800px;text-align:center;">
+      <div class="anim-up">
+        <span class="caption purple">Slide 07</span>
+        <div class="title-big white" style="margin:10px 0;">Hidup Buat <span class="purple">Serving</span> 🙌</div>
+        <p class="body-text" style="color:rgba(255,255,255,0.5);">The Real Mission</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px;text-align:left;">
+        <div class="anim-up-2">
+          <div class="glass-card" style="background:rgba(155,93,229,0.08);border-color:rgba(155,93,229,0.3);">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="font-size:40px;">🌱</span>
+              <div>
+                <p class="caption purple" style="margin-bottom:4px;">Kejadian 2:15</p>
+                <p class="body-text white">Adam diberi mandat untuk <span class="purple">"mengusahakan dan memelihara"</span> — ada tujuan yang harus dia penuhi duluan!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-up-3">
+          <div class="neon-card-pink">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="font-size:40px;">⚔️</span>
+              <div>
+                <p class="caption pink" style="margin-bottom:4px;">Ezer Kenegdo</p>
+                <p class="body-text white">Pasangan itu adalah <span class="pink">rekan seperjuangan</span> buat melayani Tuhan bareng-bareng. Bukan jadi beban atau distraksi!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-up-4">
+          <div class="glass-card" style="background:rgba(255,0,0,0.06);border-color:rgba(255,0,0,0.3);">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="font-size:40px;">🏃</span>
+              <div>
+                <p class="body-text white">Hidup kita bukan buat <span style="color:#ff6b6b;">pamer kemesraan di story.</span> Kita diciptain buat jadi <strong class="mint">berkat!</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-up-5">
+          <div class="neon-card-gold" style="text-align:center;">
+            <p class="body-text" style="color:var(--gold);font-weight:900;font-size:18px;">Kalau pacaran malah bikin kamu males ibadah → <span style="font-size:24px;">🚩</span> Sign buat RUN!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 -->
+  <div class="slide" id="slide-8">
+    <div style="width:100%;max-width:860px;">
+      <div class="slide-header anim-up" style="text-align:left;">
+        <span class="caption mint">Slide 08</span>
+        <div class="title-big white">Kekudusan 🕊️ <span class="mint">Stay Pure,</span> No Cap!</div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="anim-up-2">
+            <div class="neon-card-blue">
+              <p class="caption blue" style="margin-bottom:8px;">1 Korintus 6:19-20</p>
+              <p class="body-text white">Tubuhmu adalah <span class="blue">Bait Roh Kudus</span>. Muliakan Allah dengan tubuhmu!</p>
+            </div>
+          </div>
+          <div class="anim-up-3">
+            <div class="glass-card" style="background:rgba(6,255,165,0.06);border-color:rgba(6,255,165,0.3);">
+              <p class="caption mint" style="margin-bottom:8px;">⚖️ Tanggung Jawab Bersama</p>
+              <p class="body-text white" style="font-size:14px;">Kekristenan nggak bebanin jaga kekudusan cuma ke cewek. <span class="mint">Cewek boleh tampil cantik</span> tanpa rasa takut!</p>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="anim-right">
+            <div class="neon-card-pink" style="position:relative;overflow:hidden;">
+              <div style="position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.05;">👁️</div>
+              <p class="caption pink" style="margin-bottom:8px;">Matius 5:28 — Buat Cowok!</p>
+              <p class="body-text white">Yesus bilang: kalau kamu <span class="pink">memandang dengan mengingini</span>, kamu udah berzina di hati.</p>
+              <div style="margin-top:10px;padding:8px 12px;background:rgba(255,45,120,0.1);border-radius:8px;">
+                <p class="body-text" style="color:rgba(255,255,255,0.8);font-size:13px;">Tanggung jawab jaga pikiran ada di <strong>KAMU</strong>, bukan di baju orang lain! 💯</p>
+              </div>
+            </div>
+          </div>
+          <div class="anim-up-4">
+            <div class="neon-card-gold">
+              <p class="body-text" style="color:var(--gold);font-size:14px;">💡 <strong>The Formula:</strong> Kekudusan = cara biar kamu tetep di "Habitat" = Hadirat Tuhan = Life yang fulfilling!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9 -->
+  <div class="slide" id="slide-9">
+    <div style="width:100%;max-width:860px;text-align:center;">
+      <div class="anim-up">
+        <span class="caption pink">Slide 09</span>
+        <div class="title-big white">Antidot Ilahi 🕊️<br><span class="grad-pink-blue">The Comeback</span></div>
+      </div>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:14px;text-align:left;">
+        <div class="anim-up-2">
+          <div class="glass-card" style="text-align:center;">
+            <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
+              <div class="pill" style="background:rgba(6,255,165,0.1);border:1px solid var(--mint);color:var(--mint);">🌟 Creation</div>
+              <span style="color:rgba(255,255,255,0.3);">→</span>
+              <div class="pill" style="background:rgba(255,0,0,0.1);border:1px solid #ff6b6b;color:#ff6b6b;">😔 Fall</div>
+              <span style="color:rgba(255,255,255,0.3);">→</span>
+              <div class="pill" style="background:rgba(255,214,10,0.1);border:1px solid var(--gold);color:var(--gold);">✝️ Redemption</div>
+              <span style="color:rgba(255,255,255,0.3);">→</span>
+              <div class="pill" style="background:rgba(155,93,229,0.1);border:1px solid var(--purple);color:var(--purple);">👑 Glorification</div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-up-3">
+          <div class="neon-card-gold">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="font-size:40px;">🌳</span>
+              <div>
+                <p class="caption gold" style="margin-bottom:4px;">Galatia 3:13</p>
+                <p class="body-text white">Kalau Adam jatuh karena buah di pohon, <span class="gold">Yesus nebus kita di "Pohon" lain</span> — yaitu Kayu Salib!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-up-4">
+          <div class="neon-card-pink">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="font-size:40px;">💌</span>
+              <div>
+                <p class="caption pink" style="margin-bottom:4px;">1 Petrus 1:20</p>
+                <p class="body-text white">Rencana keselamatan Yesus sudah ada bahkan <span class="pink">sebelum dunia dijadikan.</span> God's got you!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-up-5">
+          <div class="verse-box" style="border-color:var(--purple);background:rgba(155,93,229,0.05);">
+            <p class="body-text" style="color:rgba(255,255,255,0.9);">💜 <span class="purple"><strong>Apapun kegagalanmu</strong></span>, kembalilah ke Salib. Tuhan membawa kita balik ke habitat asli. <span style="color:rgba(255,255,255,0.5);font-size:13px;">(Roma 8:30)</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10 -->
+  <div class="slide" id="slide-10">
+    <div style="width:100%;max-width:860px;">
+      <div class="slide-header anim-up" style="text-align:left;">
+        <span class="caption blue">Slide 10</span>
+        <div class="title-big white">Roh Kudus Adalah <span class="blue">Bestie</span> 🔥</div>
+      </div>
+      <div class="flex-col" style="margin-top:16px;">
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(0,212,255,0.15);border:1px solid var(--neon-blue);">🤝</div>
+          <div class="neon-card-blue" style="flex:1;">
+            <p class="caption blue" style="margin-bottom:6px;">Yohanes 14:16-17</p>
+            <p class="body-text white">Roh Kudus adalah <span class="blue">Pribadi Yesus yang setia setiap hari.</span> Dia bukan cuma "kuasa" — Dia Pribadi!</p>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(255,214,10,0.15);border:1px solid var(--gold);">☀️</div>
+          <div class="neon-card-gold" style="flex:1;">
+            <p class="caption gold" style="margin-bottom:6px;">🎯 Daily Action</p>
+            <p class="body-text white">Sapa Dia tiap pagi: <span class="gold" style="font-style:italic;">"Morning, Holy Spirit."</span><br>Mulai dari hal simpel ini!</p>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(6,255,165,0.15);border:1px solid var(--mint);">📖</div>
+          <div class="glass-card" style="flex:1;background:rgba(6,255,165,0.06);border-color:rgba(6,255,165,0.3);">
+            <p class="caption mint" style="margin-bottom:6px;">Yohanes 14:26</p>
+            <p class="body-text white">Roh Kudus bakal ngajarin kamu <span class="mint">segala sesuatu</span> — termasuk hikmat buat ujian sekolah dan milih circle yang bener!</p>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="bullet-icon" style="background:rgba(155,93,229,0.15);border:1px solid var(--purple);">👑</div>
+          <div class="glass-card" style="flex:1;background:rgba(155,93,229,0.08);border-color:rgba(155,93,229,0.3);">
+            <p class="caption purple" style="margin-bottom:6px;">Ayub 29:4</p>
+            <p class="body-text white">Bangun <span class="purple">"persahabatan yang akrab"</span> dengan Tuhan dari sekarang. Ini kunci hidup solid saat badai dateng!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: CLOSING SONG — WHEN I SAY THAT I LOVE YOU -->
+  <div class="slide" id="slide-11">
+    <div style="width:100%;max-width:780px;text-align:center;">
+      <div class="anim-up">
+        <span class="caption purple">Slide 11 — Closing</span>
+        <div class="title-big white" style="margin:8px 0;">🎵 <span class="grad-shimmer">When I Say That I Love You</span></div>
+        <p class="body-text" style="color:rgba(255,255,255,0.4);font-size:13px;">Song Outro</p>
+      </div>
+
+      <div class="anim-pop" style="margin-top:16px;">
+        <div class="song-card">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--neon-pink),var(--purple),var(--neon-blue));"></div>
+
+          <div class="song-wave">
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          </div>
+
+          <div class="lyric-scroll">
+            <!-- VERSE 1 -->
+            <p class="lyric-section-label">verse 1</p>
+            <p class="lyric-line">When I say that I love you</p>
+            <p class="lyric-line">You feel that you're lonely</p>
+            <p class="lyric-line">It doesn't prove that you are alone</p>
+            <p class="lyric-line">You feel that nobody wants you</p>
+            <p class="lyric-line">It doesn't mean that no one cares about you</p>
+
+            <div style="height:1px;background:rgba(255,255,255,0.08);margin:12px 0;"></div>
+
+            <!-- PRE-CHORUS -->
+            <p class="lyric-section-label">pre-chorus</p>
+            <p class="lyric-line highlight">Listen to the words I say,</p>
+            <p class="lyric-line highlight">that I will always by your side</p>
+            <p class="lyric-line highlight">You mean everything to me,</p>
+            <p class="lyric-line highlight">and I will never leave you</p>
+            <p class="lyric-line highlight" style="color:var(--gold);">Cause I love you so</p>
+
+            <div style="height:1px;background:rgba(255,255,255,0.08);margin:12px 0;"></div>
+
+            <!-- VERSE 2 -->
+            <p class="lyric-section-label">verse 2</p>
+            <p class="lyric-line">If you think that you're nothing</p>
+            <p class="lyric-line">Before me you are <span style="color:var(--mint);font-weight:900;">something beautiful</span></p>
+            <p class="lyric-line">You think that you can't do anything</p>
+            <p class="lyric-line">But you can do a lot of things with me</p>
+
+            <div style="height:1px;background:rgba(255,255,255,0.08);margin:12px 0;"></div>
+
+            <!-- CHORUS -->
+            <p class="lyric-section-label" style="color:var(--gold);opacity:1;">✨ chorus</p>
+            <p class="lyric-line chorus">When I say that I love you,</p>
+            <p class="lyric-line chorus">it means I give the best for you</p>
+            <p class="lyric-line chorus">When I say that I love you,</p>
+            <p class="lyric-line chorus">I will give everything for you</p>
+            <p class="lyric-line" style="color:var(--mint);font-weight:800;">No more fear about the future</p>
+            <p class="lyric-line" style="color:var(--mint);font-weight:800;">and blame for the past</p>
+            <p class="lyric-line chorus">I'll give everything when I say that I love you</p>
+
+            <div style="height:1px;background:rgba(255,255,255,0.08);margin:12px 0;"></div>
+
+            <!-- BRIDGE -->
+            <p class="lyric-section-label" style="color:var(--neon-blue);opacity:1;">🕊️ bridge</p>
+            <p class="lyric-line bridge">I want you to know that I died for you</p>
+            <p class="lyric-line bridge">I want you to know that I'll give all my life for you</p>
+
+            <div style="height:1px;background:rgba(255,255,255,0.08);margin:12px 0;"></div>
+
+            <!-- OUTRO -->
+            <p class="lyric-section-label">outro</p>
+            <p class="lyric-line highlight">When I say that I love… say that I love you</p>
+            <p class="lyric-line" style="color:var(--purple);font-weight:900;font-size:clamp(14px,2vw,20px);">When I say that I love you</p>
+            <p class="lyric-line" style="color:var(--purple);font-weight:900;font-size:clamp(14px,2vw,20px);">I really do 💜</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim-up-5" style="margin-top:16px;">
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <span class="tag tag-pink">🔥 God First</span>
+          <span class="tag tag-blue">🧠 Stay Smart</span>
+          <span class="tag tag-gold">👑 Imago Dei</span>
+          <span class="tag tag-mint">🕊️ Stay Pure</span>
+          <span class="tag tag-purple">💜 No Cap</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.4);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;margin-top:12px;">AMIN 🙏</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /slides-container -->
+
+<!-- NAVIGATION -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)">←</button>
+  <div class="dot-nav" id="dot-nav"></div>
+  <div class="slide-counter" id="counter">1 / 12</div>
+  <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">→</button>
+</div>
+
+<div class="touch-hint">Swipe or use arrows</div>
+
+<script>
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const colors = ['#ff2d78','#00d4ff','#ffd60a','#9b5de5','#06ffa5'];
+const particles = [];
+
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 0.5,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    opacity: Math.random() * 0.4 + 0.1
+  });
+}
+
+function animParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = p.opacity;
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+const dotNav = document.getElementById('dot-nav');
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goTo(i);
+  dotNav.appendChild(dot);
+}
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, total - 1));
+  slides[current].classList.add('active');
+  updateUI();
+}
+
+function changeSlide(dir) { goTo(current + dir); }
+
+function updateUI() {
+  counter.textContent = `${current + 1} / ${total}`;
+  progress.style.width = `${((current + 1) / total) * 100}%`;
+  dotNav.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+}
+
+updateUI();
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') changeSlide(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+});
+
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+    changeSlide(dx < 0 ? 1 : -1);
+  }
+});
+</script>
+</body>
+</html>
